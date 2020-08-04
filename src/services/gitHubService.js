@@ -11,6 +11,8 @@ const instance = axios.create({
  * @returns {Promise<T>}
  */
 const fetchRepos = () =>
-  instance.get('').then((response) => response.data);
+  instance.get('repositories').then((response) => response.data);
 
-export { fetchRepos };
+export const gitHuibService = {
+  fetchRepos,
+};
