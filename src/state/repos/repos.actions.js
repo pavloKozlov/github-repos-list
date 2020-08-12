@@ -3,6 +3,7 @@ import {
   FETCH_REPOS_START,
   FETCH_REPOS_SUCCEEDED,
   FETCH_REPOS_FAILED,
+  SELECT_REPOS_PAGE,
 } from './repos.actionConsts.js';
 
 /**
@@ -11,13 +12,17 @@ import {
  * @returns {function(*): Q.Promise<any> | Promise<void> | undefined}
  */
 const fetchRepos = () => async (dispatch) => {
-  dispatch({ type: FETCH_REPOS_START });
+  await dispatch({ type: FETCH_REPOS_START });
   try {
     const data = await gitHuibService.fetchRepos();
-    dispatch({ type: FETCH_REPOS_SUCCEEDED, payload: data });
+    await dispatch({ type: FETCH_REPOS_SUCCEEDED, payload: data });
+    await dispatch(selectPage(1));
   } catch {
     dispatch({ type: FETCH_REPOS_FAILED });
   }
 };
 
-export { fetchRepos };
+const selectPage = (pageNumber) => (dispatch) =>
+  dispatch({ type: SELECT_REPOS_PAGE, payload: pageNumber });
+
+export { fetchRepos, selectPage };

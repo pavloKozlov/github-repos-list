@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReposList } from '../reposList/index.js';
+import { Pagination } from '../pagination/index.js';
 import { fetchRepos } from '../../state/repos/repos.actions.js';
 import './dashboard.scss';
 
@@ -16,6 +17,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+      <Pagination />
       <ReposList items={repos} />
     </div>
   );
